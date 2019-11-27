@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="borderpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.userControllers.UserPanelControllers">
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #303030;" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onMouseClicked="#info" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: #404040; -fx-text-fill: #f0f0f0;" text="Информация">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onMouseClicked="#menu" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Меню">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onMouseClicked="#order" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Заказать">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onMouseClicked="#chat" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Чат">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onMouseClicked="#staff" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Сотрудники">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onMouseClicked="#contact" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Контакты">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onMouseClicked="#reservation" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Бронирование" />
+         </children>
+         <BorderPane.margin>
+            <Insets right="3.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <top>
+      <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="702.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="close_btn" fitWidth="20.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/turn-off.png" />
+               </image>
+               <HBox.margin>
+                  <Insets bottom="5.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets right="10.0" top="5.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+</BorderPane>

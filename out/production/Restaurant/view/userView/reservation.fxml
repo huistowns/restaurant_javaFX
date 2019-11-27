@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.MotionBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="700.0" style="-fx-background-color: #2E5D4D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.userControllers.ReservationController">
+    <children>
+        <Text fill="WHITE" layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 2.4em;" text="ALMATY STEAK HOUSE" wrappingWidth="234.087890625" />
+        <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="121.0" layoutY="59.0">
+            <image>
+                <Image url="@../../../../../Desktop/minimalTemplate/img/vegetables.png" />
+            </image>
+        </ImageView>
+        <ImageView layoutX="268.0" layoutY="162.0">
+            <image>
+                <Image url="@../../img/phone%20(1).png" />
+            </image>
+        </ImageView>
+      <ImageView fitHeight="340.0" fitWidth="623.0" layoutX="39.0" layoutY="116.0">
+         <image>
+            <Image url="@../../img/old-wooden-texture-background-vintage_55716-1138.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="stage_1" layoutX="95.0" layoutY="137.0" mnemonicParsing="false" onAction="#stage_1" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: silver;" text="1 Стол" />
+      <Button fx:id="stage_2" layoutX="95.0" layoutY="185.0" mnemonicParsing="false" onAction="#stage_2" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: silver;" text="2 Стол" />
+      <Button fx:id="stage_5" layoutX="96.0" layoutY="333.0" mnemonicParsing="false" onAction="#stage_5" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: silver;" text="5 Стол" />
+      <Button fx:id="stage_4" layoutX="95.0" layoutY="281.0" mnemonicParsing="false" onAction="#stage_4" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: silver;" text="4 Стол" />
+      <Button fx:id="stage_6" layoutX="190.0" layoutY="137.0" mnemonicParsing="false" onAction="#stage_6" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: silver;" text="6 Стол" />
+      <Button fx:id="stage_3" layoutX="95.0" layoutY="235.0" mnemonicParsing="false" onAction="#stage_3" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: silver;" text="3 Стол" />
+      <Button fx:id="stage_7" layoutX="190.0" layoutY="185.0" mnemonicParsing="false" onAction="#stage_7" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: silver;" text="7 Стол" />
+      <Button fx:id="stage_12" layoutX="363.0" layoutY="333.0" mnemonicParsing="false" onAction="#stage_12" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: silver;" text="12 Стол" />
+      <Button fx:id="stage_14" layoutX="448.0" layoutY="333.0" mnemonicParsing="false" onAction="#stage_14" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: silver;" text="14 Стол" />
+      <Button fx:id="stage_11" layoutX="363.0" layoutY="281.0" mnemonicParsing="false" onAction="#stage_11" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: silver;" text="11 Стол" />
+      <Button fx:id="stage_13" layoutX="448.0" layoutY="281.0" mnemonicParsing="false" onAction="#stage_13" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: silver;" text="13 Стол" />
+      <Button fx:id="stage_8" layoutX="363.0" layoutY="137.0" mnemonicParsing="false" onAction="#stage_8" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: silver;" text="8 Стол" />
+      <Button fx:id="stage_10" layoutX="448.0" layoutY="137.0" mnemonicParsing="false" onAction="#stage_10" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: silver;" text="10 Стол" />
+      <Button fx:id="stage_9" layoutX="363.0" layoutY="192.0" mnemonicParsing="false" onAction="#stage_9" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: silver;" text="9 Стол" />
+      <Button layoutX="190.0" layoutY="408.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: silver;" text="Бар" />
+      <Button layoutX="609.0" layoutY="137.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="53.0" style="-fx-background-color: silver;" text="Кухня" />
+      <Button layoutX="609.0" layoutY="424.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="53.0" style="-fx-background-color: silver;" text="Вход" />
+      <Text fill="WHITE" layoutX="42.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Выберите столик" wrappingWidth="185.13671875">
+         <font>
+            <Font name="BloggerSans-BoldItalic" size="15.0" />
+         </font>
+      </Text>
+      <HBox alignment="CENTER" layoutX="512.0" layoutY="14.0" prefHeight="25.0" prefWidth="150.0" style="-fx-border-color: white; -fx-prompt-text-fill: white; -fx-border-width: 0px 0px 2px 0px;">
+         <children>
+            <TextField fx:id="name_field" onAction="#name_field" prefHeight="23.0" prefWidth="234.0" promptText="Ваше Имя" style="-fx-background-color: transparent; -fx-prompt-text-fill: white; -fx-text-fill: white;">
+               <effect>
+                  <MotionBlur radius="0.0" />
+               </effect>
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+         </children>
+         <padding>
+            <Insets top="1.0" />
+         </padding>
+      </HBox>
+      <DatePicker fx:id="dateField" layoutX="488.0" layoutY="47.0" onAction="#dateField" />
+      <Button fx:id="enter_basket" layoutX="557.0" layoutY="84.0" mnemonicParsing="false" onAction="#enter_bst" prefHeight="25.0" prefWidth="105.0" style="-fx-background-color: #FE9595; -fx-background-radius: 100; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: Bold;" text="Бронировать" />
+    </children>
+</AnchorPane>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.MotionBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="700.0" style="-fx-background-color: #2E5D4D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.adminControllers.PromoController">
+    <children>
+        <Text fill="WHITE" layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 2.4em;" text="ALMATY STEAK HOUSE" wrappingWidth="234.087890625" />
+        <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="121.0" layoutY="59.0">
+            <image>
+                <Image url="@../../../../../Desktop/minimalTemplate/img/vegetables.png" />
+            </image>
+        </ImageView>
+        <ImageView layoutX="268.0" layoutY="162.0">
+            <image>
+                <Image url="@../../img/phone%20(1).png" />
+            </image>
+        </ImageView>
+        <Text fill="#ff9e00" layoutX="299.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 2.4em;" text="ПРОМО ОТДЕЛ" wrappingWidth="386.087890625">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </Text>
+      <HBox alignment="CENTER" layoutX="14.0" layoutY="303.0" prefHeight="26.0" prefWidth="250.0" style="-fx-border-color: white; -fx-prompt-text-fill: white; -fx-border-width: 0px 0px 2px 0px;">
+         <padding>
+            <Insets top="1.0" />
+         </padding>
+         <children>
+            <TextField fx:id="percentPromo_field" onAction="#name_field" prefHeight="23.0" prefWidth="234.0" promptText="Процент скидки" style="-fx-background-color: transparent; -fx-prompt-text-fill: white; -fx-text-fill: white;">
+               <effect>
+                  <MotionBlur radius="0.0" />
+               </effect>
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="14.0" layoutY="255.0" prefHeight="26.0" prefWidth="250.0" style="-fx-border-color: white; -fx-prompt-text-fill: white; -fx-border-width: 0px 0px 2px 0px;">
+         <padding>
+            <Insets top="1.0" />
+         </padding>
+         <children>
+            <TextField fx:id="namePromo_field" onAction="#name_field" prefHeight="23.0" prefWidth="236.0" promptText="Названия промо-кода" style="-fx-background-color: transparent; -fx-prompt-text-fill: white; -fx-text-fill: white;">
+               <effect>
+                  <MotionBlur radius="0.0" />
+               </effect>
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextField>
+         </children>
+      </HBox>
+      <Button fx:id="enter_basket" layoutX="69.0" layoutY="362.0" mnemonicParsing="false" onAction="#enter_bst" prefHeight="25.0" prefWidth="105.0" style="-fx-background-color: #FE9595; -fx-background-radius: 100; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: Bold;" text="Выполнить" />
+      <TableView fx:id="staff_table" layoutX="364.0" layoutY="117.0" prefHeight="329.0" prefWidth="311.0">
+         <columns>
+            <TableColumn fx:id="col_name" prefWidth="271.0" text="Названия промо" />
+            <TableColumn fx:id="col_percent" prefWidth="40.0" text="\%" />
+         </columns>
+      </TableView>
+    </children>
+</AnchorPane>

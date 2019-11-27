@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="700.0" style="-fx-background-color: #2E5D4D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.userControllers.InfoController">
+   <children>
+      <Text fill="WHITE" layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 2.4em;" text="ALMATY STEAK HOUSE" wrappingWidth="234.087890625" />
+      <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="121.0" layoutY="59.0">
+         <image>
+            <Image url="@../../../../../Desktop/minimalTemplate/img/vegetables.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="94.0" fitWidth="286.0" layoutX="21.0" layoutY="355.0">
+         <image>
+            <Image url="@../../img/mapGoogle.PNG" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="60.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em;" text="Улица розыбакиева 263, Алматы 050060" wrappingWidth="321.13671875" />
+      <Text fill="WHITE" layoutX="60.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em;" text="8(776) 288 49 55" wrappingWidth="321.13671875" />
+      <Text fill="WHITE" layoutX="60.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bolder; -fx-font-size: 1.3em;" text="12:00 - 00:00" wrappingWidth="321.13671875" />
+      <ImageView layoutX="21.0" layoutY="235.0">
+         <image>
+            <Image url="@../../img/map.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="268.0" layoutY="162.0">
+         <image>
+            <Image url="@../../img/phone%20(1).png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="21.0" layoutY="267.0">
+         <image>
+            <Image url="@../../img/telemarketer.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="21.0" layoutY="302.0">
+         <image>
+            <Image url="@../../img/clock.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="146.0" fitWidth="234.0" layoutX="443.0" layoutY="18.0">
+         <image>
+            <Image url="@../../img/ClassAxeLogo.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

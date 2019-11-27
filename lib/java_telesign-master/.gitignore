@@ -1,0 +1,17 @@
+# Gradle
+.gradle/
+build/
+/gradle.properties
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# Other
+.DS_Store
