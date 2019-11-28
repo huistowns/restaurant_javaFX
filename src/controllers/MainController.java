@@ -9,12 +9,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import mainClasses.Database;
+import mainClasses.Requests.RequestAndReply;
 import mainClasses.User;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController {
@@ -64,15 +66,21 @@ public class MainController {
 
     @FXML
     void enter_btn(ActionEvent event) {
-        Database db = new Database();
-        String name = name_field.getText();
-        String password = password_field.getText();
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            String name = name_field.getText();
+            String password = password_field.getText();
 
 
-        ArrayList<User> list = db.getAllUsers();
-        for (int i = 0; i < list.size(); i++) {
-            if (name.equals(list.get(i).getName()) && password.equals(list.get(i).getPassword())) {
-                System.out.println("Successful");
+            RequestAndReply requestUser = new RequestAndReply("VIEW_ADM");
+            oos.writeObject(requestUser);
+
+            RequestAndReply requestUser2 = (RequestAndReply)ois.readObject();
+
+            for (User u: requestUser2.getUsers()) {
+                if (name.equals(u.getName()) && password.equals(u.getPassword())) {
                 enter_button.getScene().getWindow().hide();
 
                 FXMLLoader loader = new FXMLLoader();
@@ -90,15 +98,22 @@ public class MainController {
                 stage.setScene(new Scene(root));
                 stage.show();
                 nameToSave = name;
+                }
+                else {
+                    break;
+                }
             }
-            else {
-                System.out.println("There is not");
-            }
+
+            oos.close();
+            ois.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
     @FXML
     void initialize() {
+
         sign_up_field.setOnAction(event -> {
             sign_up_field.getScene().getWindow().hide();
 

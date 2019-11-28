@@ -1,6 +1,8 @@
 package mainClasses;
 
-public class Basket {
+import java.io.Serializable;
+
+public class Basket implements Serializable {
     private String name;
     private Integer cost;
     private Long id;
@@ -11,9 +13,7 @@ public class Basket {
         this.id = id;
     }
 
-    public Basket() {
-
-    }
+    public Basket() {  }
 
     public String getName() {
         return name;

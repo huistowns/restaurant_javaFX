@@ -7,17 +7,19 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mainClasses.Basket;
-import mainClasses.Database;
 import mainClasses.Order;
+import mainClasses.Requests.RequestAndReply;
+import mainClasses.SendSMS;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class BasketController {
+    private Integer sumProduct;
 
     @FXML
     private ResourceBundle resources;
@@ -67,33 +69,57 @@ public class BasketController {
 
     @FXML
     void delete_food(ActionEvent event) {
-        Database db = new Database();
-        Long id = Long.parseLong(deleteFood_field.getText());
-        System.out.println(id);
-        db.removeFood(id);
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            Long idDelete = Long.parseLong(deleteFood_field.getText());
+            oos.writeObject(new RequestAndReply("REMOVE_ORDER", idDelete));
+            RequestAndReply requestAndReply2 = (RequestAndReply) ois.readObject();
+            System.out.println(requestAndReply2.getCode());
+
+
+            oos.close();
+            ois.close();
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
     @FXML
     void add_staff(ActionEvent event) {
-        Database db = new Database();
-        ArrayList<Basket> listBasket = db.getAllBasket();
+        String name = name_field.getText();
+        String house = house_field.getText();
+        String contact = contact_field.getText();
 
-        for(int i = 0; i <= listBasket.size(); i++) {
-            if (name_field.getText().length() > 0 && contact_field.getText().length() > 0 &&
-            house_field.getText().length() > 0) {
-                String nameCustomer = name_field.getText();
-                String contact = contact_field.getText();
-                String houseContact = house_field.getText();
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_BASKET");
+            oos.writeObject(requestAndReply);
 
-                db.addOrder(new Order(null, listBasket.get(i).getName(),
-                            listBasket.get(i).getCost(), nameCustomer, houseContact, contact));
+            RequestAndReply requestAndReply2 = (RequestAndReply)ois.readObject();
 
-                db.removeFood((long) i);
-                System.out.println("added");
+
+
+            for (Basket basket: requestAndReply2.getBaskets()) {
+                Order order = new Order(null, basket.getName(), basket.getCost(), name, house, contact);
+                RequestAndReply requestAddOrder =  new RequestAndReply("ADD_ORDER", order);
+                oos.writeObject(requestAddOrder);
             }
-        }
 
+
+            oos.close();
+            ois.close();
+
+            SendSMS sendSMS = new SendSMS();
+            sendSMS.GetMessage(name, house, contact);
+
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @FXML
@@ -126,37 +152,49 @@ public class BasketController {
 
     @FXML
     void initialize() {
-        Database db = new Database();
-        ArrayList <Basket> listBasket = db.getAllBasket();
-        int sumFood = 0;
+        Integer productSum = 0;
 
         try {
-            Connection con = Database.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM basket");
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_BASKET");
+            oos.writeObject(requestAndReply);
+            RequestAndReply requestAndReply2 = (RequestAndReply)ois.readObject();
 
-            while (rs.next()) {
-                oblist.add(new Basket(rs.getString("name"),
-                        rs.getInt("cost"),
-                        rs.getLong("id")));
+            for (Basket basket: requestAndReply2.getBaskets()) {
+                oblist.add(new Basket(basket.getName(),
+                        basket.getCost(),
+                        basket.getId()));
+                System.out.println(basket);
             }
-        } catch (SQLException ex) {
+
+            for (Basket basket: requestAndReply2.getBaskets()) {
+                productSum += basket.getCost();
+            }
+            setSumProduct(productSum);
+
+            summa.appendText(String.valueOf(getSumProduct()));
+
+            oos.close();
+            ois.close();
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
 
+        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
         col_cost.setCellValueFactory(new PropertyValueFactory<>("cost"));
-        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
 
 
         staff_table.setItems(oblist);
-
-
-        for (int i = 0; i < listBasket.size(); i++) {
-            sumFood += listBasket.get(i).getCost();
-        }
-
-        summa.appendText(String.valueOf(sumFood));
     }
 
+    public Integer getSumProduct() {
+        return sumProduct;
+    }
 
+    public void setSumProduct(Integer sumProduct) {
+        this.sumProduct = sumProduct;
+    }
 }

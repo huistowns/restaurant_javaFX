@@ -2,12 +2,15 @@ package controllers.adminControllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import mainClasses.Database;
+import mainClasses.Requests.RequestAndReply;
 import mainClasses.Staff;
 import mainClasses.User;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AccountingController {
@@ -32,30 +35,55 @@ public class AccountingController {
 
     @FXML
     void initialize() {
-        Database db = new Database();
-        ArrayList<User> listAdm = db.getAllUsers();
-        ArrayList<Staff> listStaff = db.getAllStaff();
-        int counterAdm = 0;
-        int counterStaff = 0;
-        int sumSalary = 0;
 
-        for (int i = 0; i < listAdm.size(); i++) {
-            counterAdm++;
+        // обработчик данных администраторов
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_ADM");
+            oos.writeObject(requestAndReply);
+
+            RequestAndReply requestAndReply2 = (RequestAndReply) ois.readObject();
+            int counterAdm = 0;
+            for (User user: requestAndReply2.getUsers()) {
+                counterAdm++;
+            }
+
+
+            administratorsName.appendText(String.valueOf(counterAdm));
+
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
         }
-        administratorsName.appendText(String.valueOf(counterAdm));
 
-        for (int i = 0; i < listStaff.size(); i++) {
-            counterStaff++;
+        // обработчик данных сотрудников
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_STAFF");
+
+            oos.writeObject(requestAndReply);
+
+            RequestAndReply requestAndReply2 = (RequestAndReply) ois.readObject();
+            int counterStaff = 0;
+            int sumSalary = 0;
+
+            for (Staff staff: requestAndReply2.getStaffs()) {
+                counterStaff++;
+                sumSalary += Integer.parseInt(staff.getSalary());
+            }
+
+            staffCounter.appendText(String.valueOf(counterStaff));
+            int avrSalary = sumSalary / counterStaff;
+            String salaryStaff = Integer.toString(avrSalary);
+
+            averageSalary.appendText(salaryStaff);
+
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
         }
-        staffCounter.appendText(String.valueOf(counterStaff));
-
-        for (int i = 0; i < listStaff.size(); i++) {
-            sumSalary += Integer.parseInt(listStaff.get(i).getSalary());
-        }
-        int avrSalary = sumSalary/counterStaff;
-        String salaryStaff = Integer.toString(avrSalary);
-
-        averageSalary.appendText(salaryStaff);
 
     }
 }

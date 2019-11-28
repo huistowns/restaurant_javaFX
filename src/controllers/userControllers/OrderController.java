@@ -7,25 +7,24 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import mainClasses.Basket;
-import mainClasses.Database;
 import mainClasses.Food;
+import mainClasses.Requests.RequestAndReply;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class OrderController {
+    public static String nameProduct;
+    public static Integer costProduct;
+    public static Long idProduct;
 
     @FXML
     private ResourceBundle resources;
@@ -56,9 +55,9 @@ public class OrderController {
 
     @FXML
     void enter_bst(ActionEvent event) {
-        Database db = new Database();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/userView/basket.fxml"));
+
         try {
             loader.load();
         } catch (IOException e) {
@@ -74,49 +73,84 @@ public class OrderController {
 
     @FXML
     void enter_btn(ActionEvent event) {
-        Database db = new Database();
-        String name;
-        Integer cost;
-        Long idFood;
-        ArrayList<Food> listFood = db.getAllFoods();
-        Integer id = Math.toIntExact(Long.parseLong(id_field.getText()));
+        idProduct = Long.parseLong(id_field.getText());
 
-        for (int i = 0 ; i < listFood.size(); i++) {
-            if (Integer.parseInt(String.valueOf(id)) == listFood.get(i).getId()) {
-                name = listFood.get(id).getName();
-                cost = listFood.get(id).getCost();
-                idFood = listFood.get(id).getId();
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_FOOD");
+            oos.writeObject(requestAndReply);
+            RequestAndReply requestAndReply2 = (RequestAndReply)ois.readObject();
 
-                db.addBasket(new Basket(name, cost,idFood));
+
+            for (Food food: requestAndReply2.getFoods()) {
+
+                if (food.getId().equals(idProduct)) {
+                    nameProduct = food.getName();
+                    costProduct = food.getCost();
+                    idProduct = food.getId();
+                    System.out.println(nameProduct);
+                }
+                else {
+                }
             }
-//            else {
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//
-//                alert.setTitle("Ошибка");
-//                alert.setHeaderText(null);
-//                alert.setContentText("Нету такого продукта");
-//                alert.showAndWait();
-//            }
+
+
+
+            oos.close();
+            ois.close();
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
         }
 
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
+            Basket basket = new Basket(nameProduct, costProduct, null);
+            RequestAndReply requestUser = new RequestAndReply("ADD_BASKET", basket);
+            oos.writeObject(requestUser);
+
+            oos.close();
+            ois.close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Успешно добавлено");
+            alert.setHeaderText(null);
+            alert.setContentText(" " + nameProduct + " " + costProduct + " добавлен!");
+            alert.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     ObservableList<Food> oblist = FXCollections.observableArrayList();
 
     @FXML
     void initialize() {
-
         try {
-            Connection con = Database.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM foods");
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_FOOD");
+            oos.writeObject(requestAndReply);
+            RequestAndReply requestAndReply2 = (RequestAndReply)ois.readObject();
 
-            while (rs.next()) {
-                oblist.add(new Food(rs.getString("name"),
-                        rs.getInt("cost"),
-                        rs.getLong("id")));
+
+
+            for (Food food: requestAndReply2.getFoods()) {
+                oblist.add(new Food(food.getName(),
+                        food.getCost(),
+                        food.getId()));
             }
-        } catch (SQLException ex) {
+
+
+
+            oos.close();
+            ois.close();
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
 

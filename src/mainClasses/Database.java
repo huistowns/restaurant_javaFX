@@ -120,7 +120,7 @@ public class Database {
         ArrayList<User> list = new ArrayList<>();
 
         try {
-            PreparedStatement ps = con.prepareStatement("SELECT * from administrators_db");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM administrators_db");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -186,7 +186,7 @@ public class Database {
     }
 
     public ArrayList<Basket> getAllBasket() {
-        ArrayList<Basket> list = new ArrayList<>();
+        ArrayList<Basket> listBasket = new ArrayList<>();
 
         try {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM basket");
@@ -197,13 +197,13 @@ public class Database {
                 Integer cost = rs.getInt("cost");
                 Long id = rs.getLong("id");
 
-                list.add(new Basket(name,cost,id));
+                listBasket.add(new Basket(name,cost,id));
             }
             ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list;
+        return listBasket;
     }
 
     public ArrayList<Reservation> getAllReservation() {
@@ -251,15 +251,17 @@ public class Database {
         return connection;
     }
 
-    public void removeFood(Long id) {
+    public boolean removeFood(Long id) {
+        int number = 0;
         try {
             PreparedStatement ps = con.prepareStatement("DELETE FROM basket WHERE id = ?");
             ps.setLong(1, id);
-            ps.executeUpdate();
+            number = ps.executeUpdate();
             ps.close();;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return (number==1);
     }
 
 

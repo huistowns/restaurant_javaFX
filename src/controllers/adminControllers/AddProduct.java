@@ -5,9 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import mainClasses.Database;
 import mainClasses.Food;
+import mainClasses.Requests.RequestAndReply;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -30,17 +34,28 @@ public class AddProduct {
 
     @FXML
     void enter_btn(ActionEvent event) {
-        Database db = new Database();
-        Integer cost = Integer.parseInt(cost_field.getText());
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
-        db.addFood(new Food(name_field.getText(), cost, null));
+            Integer cost = Integer.parseInt(cost_field.getText());
+            String name = name_field.getText();
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Food food = new Food(name, cost, null);
+            RequestAndReply requestUser = new RequestAndReply("ADD_FOOD", food);
+            oos.writeObject(requestUser);
 
-        alert.setTitle("Успешно добавлено");
-        alert.setHeaderText(null);
-        alert.setContentText(" " + name_field.getText() + " " + cost_field.getText() + " добавлен!");
-        alert.showAndWait();
+            oos.close();
+            ois.close();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Успешно добавлено");
+            alert.setHeaderText(null);
+            alert.setContentText(" " + name_field.getText() + " " + cost_field.getText() + " добавлен!");
+            alert.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import mainClasses.Requests.RequestUser;
+import mainClasses.Requests.RequestAndReply;
 import mainClasses.User;
 
 import java.io.IOException;
@@ -43,17 +43,6 @@ public class SignUpControllers {
 
     @FXML
     void registration_btn(ActionEvent event) throws SQLException {
-//        Database db = new Database();
-//
-//        db.addAdministrator(new User(null, name_field.getText(), password_field.getText(),telephone_number_field.getText()));
-//
-//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//
-//        alert.setTitle("Успешно добавлено");
-//        alert.setHeaderText(null);
-//        alert.setContentText("Сотрудник " + name_field.getText() + " добавлен!");
-//        alert.showAndWait();
-
         try {
             Socket socket = new Socket("localhost", 12345);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -64,7 +53,7 @@ public class SignUpControllers {
             String contact = telephone_number_field.getText();
 
             User user = new User(null, name, password, contact);
-            RequestUser requestUser = new RequestUser("ADD", user);
+            RequestAndReply requestUser = new RequestAndReply("ADD_ADM", user);
             oos.writeObject(requestUser);
 
             oos.close();

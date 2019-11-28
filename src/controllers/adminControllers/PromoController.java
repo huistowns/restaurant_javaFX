@@ -9,14 +9,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import mainClasses.Database;
 import mainClasses.Promo;
+import mainClasses.Requests.RequestAndReply;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class PromoController {
@@ -47,10 +47,23 @@ public class PromoController {
 
     @FXML
     void enter_bst(ActionEvent event) {
-        Integer percent = Integer.parseInt(percentPromo_field.getText());
-        Database db = new Database();
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
-        db.addPromo(new Promo(namePromo_field.getText(), percent));
+            String promoName = namePromo_field.getText();
+            Integer percent = Integer.parseInt(percentPromo_field.getText());
+
+            Promo promo = new Promo(promoName, percent);
+            RequestAndReply requestUser = new RequestAndReply("ADD_PROMO", promo);
+            oos.writeObject(requestUser);
+
+            oos.close();
+            ois.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -62,17 +75,22 @@ public class PromoController {
 
     @FXML
     void initialize() {
-        Database db = new Database();
-        ArrayList<Promo> listPromo = db.getAllPromo();
         try {
-            Connection con = Database.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM promo");
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_PROMO");
+            oos.writeObject(requestAndReply);
+            RequestAndReply requestAndReply2 = (RequestAndReply)ois.readObject();
 
-            while (rs.next()) {
-                oblist.add(new Promo(rs.getString("name"),
-                        rs.getInt("percent")));
+            for (Promo promo: requestAndReply2.getPromos()) {
+                oblist.add(new Promo(promo.getName(),
+                        promo.getPercent()));
             }
-        } catch (SQLException ex) {
+
+            oos.close();
+            ois.close();
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
 

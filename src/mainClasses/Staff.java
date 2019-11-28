@@ -59,4 +59,15 @@ public class Staff implements Serializable {
     public void setSalary(String salary) {
         this.salary = salary;
     }
+
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", position='" + position + '\'' +
+                ", salary='" + salary + '\'' +
+                '}';
+    }
 }

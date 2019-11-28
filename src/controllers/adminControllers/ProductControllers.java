@@ -12,14 +12,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import mainClasses.Database;
 import mainClasses.Food;
+import mainClasses.Requests.RequestAndReply;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ProductControllers {
@@ -68,15 +68,22 @@ public class ProductControllers {
     @FXML
     void initialize() {
         try {
-            Connection con = Database.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM foods");
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_FOOD");
+            oos.writeObject(requestAndReply);
+            RequestAndReply requestAndReply2 = (RequestAndReply)ois.readObject();
 
-            while (rs.next()) {
-                oblist.add(new Food(rs.getString("name"),
-                        rs.getInt("cost"),
-                        rs.getLong("id")));
+            for (Food food: requestAndReply2.getFoods()) {
+                oblist.add(new Food(food.getName(),
+                        food.getCost(),
+                        food.getId()));
             }
-        } catch (SQLException ex) {
+
+            oos.close();
+            ois.close();
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
 

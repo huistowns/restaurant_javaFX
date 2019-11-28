@@ -13,14 +13,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import mainClasses.Database;
+import mainClasses.Requests.RequestAndReply;
 import mainClasses.Staff;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class StaffControllers implements Initializable {
@@ -57,10 +57,8 @@ public class StaffControllers implements Initializable {
 
     @FXML
     void add_staff(ActionEvent event) {
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/adminView/addStaff.fxml"));
-
         try {
             loader.load();
         } catch (IOException e) {
@@ -77,17 +75,24 @@ public class StaffControllers implements Initializable {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            Connection con = Database.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM staff");
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_STAFF");
+            oos.writeObject(requestAndReply);
+            RequestAndReply requestAndReply2 = (RequestAndReply)ois.readObject();
 
-            while (rs.next()) {
-                oblist.add(new Staff(rs.getLong("id"),
-                        rs.getString("name"),
-                        rs.getString("surname"),
-                        rs.getString("position"),
-                        rs.getString("salary")));
+            for (Staff staff: requestAndReply2.getStaffs()) {
+                oblist.add(new Staff(staff.getId(),
+                        staff.getName(),
+                        staff.getSurname(),
+                        staff.getPosition(),
+                        staff.getSalary()));
             }
-        } catch (SQLException ex) {
+
+            oos.close();
+            ois.close();
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
 
