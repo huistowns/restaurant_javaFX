@@ -78,7 +78,7 @@ public class StaffControllers implements Initializable {
             Socket socket = new Socket("localhost", 12345);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            RequestAndReply requestAndReply = new RequestAndReply("VIEW_STAFF");
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_STAFF_REPLY");
             oos.writeObject(requestAndReply);
             RequestAndReply requestAndReply2 = (RequestAndReply)ois.readObject();
 

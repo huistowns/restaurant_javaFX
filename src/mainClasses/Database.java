@@ -75,10 +75,12 @@ public class Database {
 
     public void addReservation (Reservation reservation) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO reservation(id, name, date, stage) VALUES (NULL, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO reservation(id, name, date, stage, time, ticket) VALUES (NULL, ?, ?, ?, ?, ?)");
             ps.setString(1, reservation.getName());
             ps.setString(2, reservation.getDate());
             ps.setInt(3, reservation.getStage());
+            ps.setString(4, reservation.getTime());
+            ps.setInt(5, reservation.getTicket());
 
             ps.executeUpdate();
             ps.close();
@@ -218,13 +220,39 @@ public class Database {
                 String name = rs.getString("name");
                 String date = rs.getString("date");
                 Integer stage = rs.getInt("stage");
-                list.add(new Reservation(id,name,date,stage));
+                String time = rs.getString("time");
+                Integer ticket = rs.getInt("ticket");
+
+                list.add(new Reservation(id,name,date,stage, time, ticket));
             }
             ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public ArrayList<Order> getAllOrder() {
+        ArrayList<Order> listOrder = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM order_foods");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Long id = rs.getLong("id");
+                String name = rs.getString("name");
+                Integer cost = rs.getInt("cost");
+                String nameCustomer = rs.getString("nameCustomer");
+                String addressHome = rs.getString("addressHome");
+                String contactNumber = rs.getString("contactNumber");
+                listOrder.add(new Order(id, name, cost, nameCustomer, addressHome, contactNumber));
+            }
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOrder;
     }
 
     public ArrayList<Promo> getAllPromo() {
@@ -255,7 +283,7 @@ public class Database {
         int number = 0;
         try {
             PreparedStatement ps = con.prepareStatement("DELETE FROM basket WHERE id = ?");
-            ps.setLong(1, id);
+            ps.setInt(1, Math.toIntExact(id));
             number = ps.executeUpdate();
             ps.close();;
         } catch (SQLException e) {

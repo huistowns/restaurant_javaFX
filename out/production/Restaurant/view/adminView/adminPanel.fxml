@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXProgressBar?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
@@ -32,7 +33,7 @@
                         <Insets top="10.0" />
                     </VBox.margin>
                 </Button>
-                <Button mnemonicParsing="false" onMouseClicked="#tax" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Налог">
+                <Button mnemonicParsing="false" onMouseClicked="#tax" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Резервация">
                     <VBox.margin>
                         <Insets top="10.0" />
                     </VBox.margin>
@@ -43,7 +44,7 @@
                     </VBox.margin>
                 </Button>
             <Button mnemonicParsing="false" onMouseClicked="#promo" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Промо-коды" />
-            <Button mnemonicParsing="false" onMouseClicked="#orders" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Заказы" />
+            <Button mnemonicParsing="false" onMouseClicked="#orders" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="История" />
             </children>
             <BorderPane.margin>
                 <Insets right="3.0" />
@@ -53,6 +54,11 @@
     <top>
         <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="702.0" BorderPane.alignment="CENTER">
             <children>
+            <JFXProgressBar>
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </JFXProgressBar>
                 <ImageView fx:id="close_btn" fitWidth="20.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../img/turn-off.png" />

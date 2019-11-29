@@ -40,63 +40,81 @@ public class ClientHandler extends Thread {
 
                 System.out.println(requestUser);
 
-                if (requestUser.getCode().equals("ADD_ADM")) {
+                if (requestUser.getCode().equals("ADD_ADM_REQUEST")) {
                     db.addAdministrator(requestUser.getUser());
                 }
-                else if (requestUser.getCode().equals("ADD_STAFF")) {
+                else if (requestUser.getCode().equals("ADD_STAFF_REQUEST")) {
                     db.addStaff(requestUser.getStaff());
                 }
-                else if (requestUser.getCode().equals("ADD_FOOD")) {
+                else if (requestUser.getCode().equals("ADD_FOOD_REQUEST")) {
                     db.addFood(requestUser.getFood());
                 }
 
-                else if (requestUser.getCode().equals("ADD_ORDER")) {
+                else if (requestUser.getCode().equals("ADD_RESERVATION_REQUEST")) {
+                    db.addReservation(requestUser.getReservation());
+                }
+
+                else if (requestUser.getCode().equals("ADD_ORDER_REQUEST")) {
                     db.addOrder(requestUser.getOrder());
                 }
 
-                else if (requestUser.getCode().equals("ADD_PROMO")) {
+                else if (requestUser.getCode().equals("ADD_PROMO_REPLY")) {
                     db.addPromo(requestUser.getPromo());
                 }
-                else if (requestUser.getCode().equals("ADD_BASKET")) {
+                else if (requestUser.getCode().equals("ADD_BASKET_REQUEST")) {
                     db.addBasket(requestUser.getBasket());
                 }
 
-                else if (requestUser.getCode().equals("VIEW_ADM")) {
+                else if (requestUser.getCode().equals("VIEW_ADM_REPLY")) {
                         RequestAndReply requestUser2 = new RequestAndReply("ANSWER");
                         requestUser2.setUsers(db.getAllUsers());
 
                         oos.writeObject(requestUser2);
                     }
 
-                else if (requestUser.getCode().equals("VIEW_BASKET")) {
+                else if (requestUser.getCode().equals("VIEW_BASKET_REPLY")) {
                     RequestAndReply requestAndReply2 = new RequestAndReply("ANSWER_BASKET");
                     requestAndReply2.setBaskets(db.getAllBasket());
 
                     oos.writeObject(requestAndReply2);
                 }
 
-                else if (requestUser.getCode().equals("VIEW_PROMO")) {
+                else if (requestUser.getCode().equals("VIEW_RESERVATION_REPLY")) {
+                    RequestAndReply requestAndReply2 = new RequestAndReply("ANSWER_REQUEST");
+                    requestAndReply2.setReservations(db.getAllReservation());
+
+                    oos.writeObject(requestAndReply2);
+                }
+
+                else if (requestUser.getCode().equals("VIEW_PROMO_REPLY")) {
                     RequestAndReply requestAndReply2 = new RequestAndReply("ANSWER_PROMO");
                     requestAndReply2.setPromos(db.getAllPromo());
 
                     oos.writeObject(requestAndReply2);
                 }
 
-                else if (requestUser.getCode().equals("VIEW_FOOD")) {
+                else if (requestUser.getCode().equals("VIEW_FOOD_REPLY")) {
                     RequestAndReply requestAndReply2 = new RequestAndReply("ANSWER_FOOD");
                     requestAndReply2.setFoods(db.getAllFoods());
 
                     oos.writeObject(requestAndReply2);
                 }
 
-                else if (requestUser.getCode().equals("VIEW_STAFF")) {
+                else if (requestUser.getCode().equals("VIEW_ORDER_REPLY")) {
+                    RequestAndReply requestAndReply2 = new RequestAndReply("ANSWER_ORDER");
+                    requestAndReply2.setOrders(db.getAllOrder());
+
+                    oos.writeObject(requestAndReply2);
+                }
+
+                else if (requestUser.getCode().equals("VIEW_STAFF_REPLY")) {
                     RequestAndReply requestAndReply2 = new RequestAndReply("ANSWER_STAFF");
                     requestAndReply2.setStaff(db.getAllStaff());
 
                     oos.writeObject(requestAndReply2);
                 }
 
-                else if (requestUser.getCode().equals("REMOVE_ORDER")) {
+                else if (requestUser.getCode().equals("REMOVE_ORDER_REQUEST")) {
                     if(db.removeFood(requestUser.getId())) {
                         oos.writeObject(new RequestAndReply("SUCCESS_ORDER"));
                     }

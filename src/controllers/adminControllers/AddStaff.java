@@ -51,7 +51,7 @@ public class AddStaff {
             String salary = salary_field.getText();
 
             Staff staff = new Staff(null, name, surname, position, salary);
-            RequestAndReply requestUser = new RequestAndReply("ADD_STAFF", staff);
+            RequestAndReply requestUser = new RequestAndReply("ADD_STAFF_REQUEST", staff);
             oos.writeObject(requestUser);
 
             oos.close();

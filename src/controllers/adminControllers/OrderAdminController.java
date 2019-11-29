@@ -1,5 +1,6 @@
 package controllers.adminControllers;
 
+import com.jfoenix.controls.JFXTextArea;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -7,12 +8,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mainClasses.Order;
-import mainClasses.Staff;
+import mainClasses.Requests.RequestAndReply;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class OrderAdminController {
+    static int income = 0;
 
     @FXML
     private ResourceBundle resources;
@@ -41,21 +47,54 @@ public class OrderAdminController {
     @FXML
     private TableColumn<Order, String> col_contact;
 
-    ObservableList<Staff> oblist = FXCollections.observableArrayList();
+    @FXML
+    private JFXTextArea incomeText;
+
+    ObservableList<Order> oblist = FXCollections.observableArrayList();
 
     @FXML
     void initialize() {
 
 
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_ORDER_REPLY");
+            oos.writeObject(requestAndReply);
+            RequestAndReply requestAndReply2 = (RequestAndReply) ois.readObject();
 
-        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        col_foodName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        col_cost.setCellValueFactory(new PropertyValueFactory<>("cost"));
-        col_buyer.setCellValueFactory(new PropertyValueFactory<>("buyer"));
-        col_address.setCellValueFactory(new PropertyValueFactory<>("address"));
-        col_contact.setCellValueFactory(new PropertyValueFactory<>("contact"));
+            for (Order order : requestAndReply2.getOrders()) {
+                oblist.add(new Order(order.getId(),
+                        order.getName(),
+                        order.getCost(),
+                        order.getNameCustomer(),
+                        order.getAddressHome(),
+                        order.getContactNumber()));
+                income += order.getCost();
+            }
+                oos.close();
+                ois.close();
 
-//        staff_table.setItems(oblist);
+                incomeText.appendText(String.valueOf(income));
+            } catch(IOException | ClassNotFoundException ex){
+                ex.printStackTrace();
+            }
 
+
+            col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+            col_foodName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            col_cost.setCellValueFactory(new PropertyValueFactory<>("cost"));
+            col_buyer.setCellValueFactory(new PropertyValueFactory<>("nameCustomer"));
+            col_address.setCellValueFactory(new PropertyValueFactory<>("addressHome"));
+            col_contact.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
+
+            staff_table.setItems(oblist);
+
+        System.out.println(incomes());
+    }
+
+    public Integer incomes() {
+        return income;
     }
 }

@@ -74,7 +74,7 @@ public class BasketController {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             Long idDelete = Long.parseLong(deleteFood_field.getText());
-            oos.writeObject(new RequestAndReply("REMOVE_ORDER", idDelete));
+            oos.writeObject(new RequestAndReply("REMOVE_ORDER_REQUEST", idDelete));
             RequestAndReply requestAndReply2 = (RequestAndReply) ois.readObject();
             System.out.println(requestAndReply2.getCode());
 
@@ -97,7 +97,7 @@ public class BasketController {
             Socket socket = new Socket("localhost", 12345);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            RequestAndReply requestAndReply = new RequestAndReply("VIEW_BASKET");
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_BASKET_REPLY");
             oos.writeObject(requestAndReply);
 
             RequestAndReply requestAndReply2 = (RequestAndReply)ois.readObject();
@@ -106,7 +106,7 @@ public class BasketController {
 
             for (Basket basket: requestAndReply2.getBaskets()) {
                 Order order = new Order(null, basket.getName(), basket.getCost(), name, house, contact);
-                RequestAndReply requestAddOrder =  new RequestAndReply("ADD_ORDER", order);
+                RequestAndReply requestAddOrder =  new RequestAndReply("ADD_ORDER_REQUEST", order);
                 oos.writeObject(requestAddOrder);
             }
 
@@ -115,7 +115,7 @@ public class BasketController {
             ois.close();
 
             SendSMS sendSMS = new SendSMS();
-            sendSMS.GetMessage(name, house, contact);
+//            SendSMS.SendSMSManager(name, house, contact);
 
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
@@ -153,28 +153,27 @@ public class BasketController {
     @FXML
     void initialize() {
         Integer productSum = 0;
-
         try {
             Socket socket = new Socket("localhost", 12345);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            RequestAndReply requestAndReply = new RequestAndReply("VIEW_BASKET");
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_BASKET_REPLY");
             oos.writeObject(requestAndReply);
             RequestAndReply requestAndReply2 = (RequestAndReply)ois.readObject();
+
+
 
             for (Basket basket: requestAndReply2.getBaskets()) {
                 oblist.add(new Basket(basket.getName(),
                         basket.getCost(),
                         basket.getId()));
-                System.out.println(basket);
-            }
-
-            for (Basket basket: requestAndReply2.getBaskets()) {
                 productSum += basket.getCost();
             }
-            setSumProduct(productSum);
 
-            summa.appendText(String.valueOf(getSumProduct()));
+            setSumProduct(productSum);
+            summa.appendText(String.valueOf(productSum));
+
+
 
             oos.close();
             ois.close();
@@ -182,10 +181,9 @@ public class BasketController {
             ex.printStackTrace();
         }
 
-        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
         col_cost.setCellValueFactory(new PropertyValueFactory<>("cost"));
-
+        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         staff_table.setItems(oblist);
     }

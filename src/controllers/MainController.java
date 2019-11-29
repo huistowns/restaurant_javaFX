@@ -74,7 +74,7 @@ public class MainController {
             String password = password_field.getText();
 
 
-            RequestAndReply requestUser = new RequestAndReply("VIEW_ADM");
+            RequestAndReply requestUser = new RequestAndReply("VIEW_ADM_REPLY");
             oos.writeObject(requestUser);
 
             RequestAndReply requestUser2 = (RequestAndReply)ois.readObject();

@@ -53,7 +53,7 @@ public class SignUpControllers {
             String contact = telephone_number_field.getText();
 
             User user = new User(null, name, password, contact);
-            RequestAndReply requestUser = new RequestAndReply("ADD_ADM", user);
+            RequestAndReply requestUser = new RequestAndReply("ADD_ADM_REQUEST", user);
             oos.writeObject(requestUser);
 
             oos.close();

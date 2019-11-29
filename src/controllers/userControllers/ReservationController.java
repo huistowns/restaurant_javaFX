@@ -1,24 +1,38 @@
 package controllers.userControllers;
 
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import mainClasses.Database;
+import mainClasses.Requests.RequestAndReply;
 import mainClasses.Reservation;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ReservationController {
     public static Integer stage = 0;
 
     @FXML
+    void dateFieldq(ActionEvent event) {
+
+    }
+
+    @FXML
+    private JFXDatePicker dateFieldq;
+
+    @FXML
     private ResourceBundle resources;
+
+
 
     @FXML
     private URL location;
@@ -69,7 +83,7 @@ public class ReservationController {
     private TextField name_field;
 
     @FXML
-    private DatePicker dateField;
+    private TextField time_field;
 
     @FXML
     private Button enter_basket;
@@ -80,22 +94,59 @@ public class ReservationController {
     }
 
     @FXML
-    void enter_bst(ActionEvent event) {
-        Database db = new Database();
-        ArrayList<Reservation> listReservation = db.getAllReservation();
-        String date = dateField.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    void time_field(ActionEvent event) {
 
-        for (int i = 0; i < listReservation.size(); i++) {
-            if (stage == 0 && stage.equals(listReservation.get(i).getStage())
-                    && name_field.getText().length() <= 0 && date.equals(listReservation.get(i).getDate())) {
+    }
+
+    @FXML
+    void enter_bst(ActionEvent event) {
+
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+            String name = name_field.getText();
+            String date = dateFieldq.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String time = timeon.getValue().format(DateTimeFormatter.ofPattern("HH:mm"));
+            System.out.println(time);
+
+            if (stage == 0) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Выберите другое");
+                alert.setTitle("Успешно добавлено");
                 alert.setHeaderText(null);
-                alert.setContentText("Данный столик зарезервирован на данное число!, Выберите другое число");
+                alert.setContentText("Вы не выбрали столик!");
                 alert.showAndWait();
             }
+            else if (stage == 0 && date.length() <= 0 && time.length() <= 0) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Успешно добавлено");
+                alert.setHeaderText(null);
+                alert.setContentText("Заполните все поля!");
+                alert.showAndWait();
+            }
+
+            else {
+                int minNumber = 100;
+                int maxNumber = 5000;
+                int randomBilet = minNumber + (int) (Math.random() * maxNumber);
+
+                Reservation reservation = new Reservation(null, name, date, stage, time, randomBilet);
+                RequestAndReply requestUser = new RequestAndReply("ADD_RESERVATION_REQUEST", reservation);
+                oos.writeObject(requestUser);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Успешно добавлено");
+                alert.setHeaderText(null);
+                alert.setContentText("Ваша ID, не забудьте предоставить администратору при встрече" + "\n" + "ID: " + randomBilet);
+                alert.showAndWait();
+            }
+
+            oos.close();
+            ois.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        db.addReservation(new Reservation(null,name_field.getText(),date,stage));
     }
 
     @FXML
@@ -108,7 +159,7 @@ public class ReservationController {
         stage = 1;
         System.out.println(stage);
         messageStage(stage);
-        String date = dateField.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String date = dateFieldq.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         System.out.println(date);
 
 
@@ -206,8 +257,20 @@ public class ReservationController {
         messageStage(stage);
     }
 
+
+    @FXML
+    private JFXTimePicker timeon;
+
+    @FXML
+    void timeon(ActionEvent event) {
+
+    }
+
+
+
     @FXML
     void initialize() {
+
     }
 
 

@@ -51,7 +51,7 @@ public class UserPanelControllers {
 
     @FXML
     void menu(MouseEvent event) {
-
+        loadUI("../../view/userView/menu");
     }
 
     @FXML

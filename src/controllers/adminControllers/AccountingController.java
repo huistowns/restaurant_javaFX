@@ -41,7 +41,7 @@ public class AccountingController {
             Socket socket = new Socket("localhost", 12345);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            RequestAndReply requestAndReply = new RequestAndReply("VIEW_ADM");
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_ADM_REPLY");
             oos.writeObject(requestAndReply);
 
             RequestAndReply requestAndReply2 = (RequestAndReply) ois.readObject();
@@ -50,8 +50,10 @@ public class AccountingController {
                 counterAdm++;
             }
 
+            OrderAdminController orderAdminController = new OrderAdminController();
 
             administratorsName.appendText(String.valueOf(counterAdm));
+            incomeField.appendText(String.valueOf(orderAdminController.incomes()));
 
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
@@ -62,7 +64,7 @@ public class AccountingController {
             Socket socket = new Socket("localhost", 12345);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            RequestAndReply requestAndReply = new RequestAndReply("VIEW_STAFF");
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_STAFF_REPLY");
 
             oos.writeObject(requestAndReply);
 

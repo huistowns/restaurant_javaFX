@@ -13,6 +13,7 @@ public class RequestAndReply implements Serializable {
     private Promo promo;
     private Order order;
     private Basket basket;
+    private Reservation reservation;
 
     private ArrayList<Staff> staffs = null;
     private ArrayList<Order> orders = null;
@@ -20,6 +21,7 @@ public class RequestAndReply implements Serializable {
     private ArrayList<Food> foods = null;
     private ArrayList<Promo> promos = null;
     private ArrayList<Basket> baskets = null;
+    private ArrayList<Reservation> reservations = null;
 
     private Long id;
 
@@ -40,6 +42,11 @@ public class RequestAndReply implements Serializable {
     public RequestAndReply(String code, User user) {
         this.code = code;
         this.user = user;
+    }
+
+    public RequestAndReply(String code, Reservation reservation) {
+        this.reservation = reservation;
+        this.code = code;
     }
 
     public RequestAndReply(String code, Order order) {
@@ -96,6 +103,8 @@ public class RequestAndReply implements Serializable {
 
     public Staff getStaff() { return staff; }
 
+    public Reservation getReservation() { return reservation; }
+
     public Basket getBasket() { return  basket; }
 
     public Food getFood() { return food; }
@@ -107,6 +116,8 @@ public class RequestAndReply implements Serializable {
     }
 
     public void setBasket (Basket basket) { this.basket = basket; }
+
+    public void setReservation(Reservation reservation) { this.reservation = reservation; }
 
     public void setOrder (Order order) { this.order = order; }
 
@@ -121,6 +132,8 @@ public class RequestAndReply implements Serializable {
     public ArrayList<Staff> getStaffs() { return  staffs; }
 
     public ArrayList<Basket> getBaskets() { return baskets; }
+
+    public ArrayList<Reservation> getReservations() { return  reservations; }
 
     public ArrayList<Order> getOrders() { return orders; }
 
@@ -138,6 +151,8 @@ public class RequestAndReply implements Serializable {
         this.staffs = staffs;
     }
 
+    public void setReservations(ArrayList<Reservation> reservations) { this.reservations = reservations; }
+
     public void setFoods(ArrayList<Food> foods) {
         this.foods = foods;
     }
@@ -152,10 +167,6 @@ public class RequestAndReply implements Serializable {
 
     @Override
     public String toString() {
-        return "RequestUser{" +
-                "code='" + code + '\'' +
-                ", user=" + user +
-                ", users=" + users +
-                '}';
+        return "(REQUEST AND REPLY HANDLER) CODE = " + "[" + code + "]";
     }
 }

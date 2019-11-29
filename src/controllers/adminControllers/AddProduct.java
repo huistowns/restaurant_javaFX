@@ -43,7 +43,7 @@ public class AddProduct {
             String name = name_field.getText();
 
             Food food = new Food(name, cost, null);
-            RequestAndReply requestUser = new RequestAndReply("ADD_FOOD", food);
+            RequestAndReply requestUser = new RequestAndReply("ADD_FOOD_REQUEST", food);
             oos.writeObject(requestUser);
 
             oos.close();

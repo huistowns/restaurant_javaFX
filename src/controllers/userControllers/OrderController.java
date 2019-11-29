@@ -110,7 +110,7 @@ public class OrderController {
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
             Basket basket = new Basket(nameProduct, costProduct, null);
-            RequestAndReply requestUser = new RequestAndReply("ADD_BASKET", basket);
+            RequestAndReply requestUser = new RequestAndReply("ADD_BASKET_REQUEST", basket);
             oos.writeObject(requestUser);
 
             oos.close();
@@ -134,7 +134,7 @@ public class OrderController {
             Socket socket = new Socket("localhost", 12345);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            RequestAndReply requestAndReply = new RequestAndReply("VIEW_FOOD");
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_FOOD_REPLY");
             oos.writeObject(requestAndReply);
             RequestAndReply requestAndReply2 = (RequestAndReply)ois.readObject();
 

@@ -56,7 +56,7 @@ public class PromoController {
             Integer percent = Integer.parseInt(percentPromo_field.getText());
 
             Promo promo = new Promo(promoName, percent);
-            RequestAndReply requestUser = new RequestAndReply("ADD_PROMO", promo);
+            RequestAndReply requestUser = new RequestAndReply("ADD_PROMO_REPLY", promo);
             oos.writeObject(requestUser);
 
             oos.close();
@@ -79,7 +79,7 @@ public class PromoController {
             Socket socket = new Socket("localhost", 12345);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            RequestAndReply requestAndReply = new RequestAndReply("VIEW_PROMO");
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_PROMO_REPLY");
             oos.writeObject(requestAndReply);
             RequestAndReply requestAndReply2 = (RequestAndReply)ois.readObject();
 

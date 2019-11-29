@@ -73,7 +73,7 @@ public class AdminPanelControllers {
 
     @FXML
     void tax(MouseEvent event) {
-        loadUI("../../view/adminView/accounting");
+        loadUI("../../view/adminView/reservation");
     }
 
 
