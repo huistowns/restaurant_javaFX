@@ -41,12 +41,22 @@ public class UserPanelControllers {
 
     @FXML
     void contact(MouseEvent event) {
+        loadUI("../../view/userView/contact");
+    }
 
+    @FXML
+    void news(MouseEvent event) {
+        loadUI("../../view/userView/news");
     }
 
     @FXML
     void info(MouseEvent event) throws IOException {
         loadUI("../../view/userView/info");
+    }
+
+    @FXML
+    void history(MouseEvent event) throws IOException {
+        loadUI("../../view/userView/userOrders");
     }
 
     @FXML

@@ -57,7 +57,12 @@ public class AdminPanelControllers {
 
     @FXML
     void requisites(MouseEvent event) {
-        loadUI("../../view/adminView/accounting");
+        loadUI("../../view/adminView/requisites");
+    }
+
+    @FXML
+    void news(MouseEvent event) {
+        loadUI("../../view/adminView/news");
     }
 
     @FXML
@@ -91,4 +96,5 @@ public class AdminPanelControllers {
     void initialize() {
 
     }
+
 }

@@ -50,6 +50,10 @@ public class ClientHandler extends Thread {
                     db.addFood(requestUser.getFood());
                 }
 
+                else if (requestUser.getCode().equals("ADD_NEWS_REQUEST")) {
+                    db.addNews(requestUser.getNews());
+                }
+
                 else if (requestUser.getCode().equals("ADD_RESERVATION_REQUEST")) {
                     db.addReservation(requestUser.getReservation());
                 }
@@ -58,11 +62,19 @@ public class ClientHandler extends Thread {
                     db.addOrder(requestUser.getOrder());
                 }
 
+                else if (requestUser.getCode().equals("ADD_REQUISITES_REQUEST")) {
+                    db.addRequisites(requestUser.getRequisite());
+                }
+
                 else if (requestUser.getCode().equals("ADD_PROMO_REPLY")) {
                     db.addPromo(requestUser.getPromo());
                 }
                 else if (requestUser.getCode().equals("ADD_BASKET_REQUEST")) {
                     db.addBasket(requestUser.getBasket());
+                }
+
+                else if (requestUser.getCode().equals("ADD_CONSUMER_REQUEST")) {
+                    db.addConsumer(requestUser.getConsumer());
                 }
 
                 else if (requestUser.getCode().equals("VIEW_ADM_REPLY")) {
@@ -75,6 +87,27 @@ public class ClientHandler extends Thread {
                 else if (requestUser.getCode().equals("VIEW_BASKET_REPLY")) {
                     RequestAndReply requestAndReply2 = new RequestAndReply("ANSWER_BASKET");
                     requestAndReply2.setBaskets(db.getAllBasket());
+
+                    oos.writeObject(requestAndReply2);
+                }
+
+                else if (requestUser.getCode().equals("VIEW_CONSUMER_REPLY")) {
+                    RequestAndReply requestAndReply2 = new RequestAndReply("ANSWER_CONSUMER");
+                    requestAndReply2.setConsumers(db.getAllConsumer());
+
+                    oos.writeObject(requestAndReply2);
+                }
+
+                else if (requestUser.getCode().equals("VIEW_NEWS_REPLY")) {
+                    RequestAndReply requestAndReply2 = new RequestAndReply("ANSWER_NEWS");
+                    requestAndReply2.setNews(db.getAllNews());
+
+                    oos.writeObject(requestAndReply2);
+                }
+
+                else if (requestUser.getCode().equals("VIEW_REQUISITES_REPLY")) {
+                    RequestAndReply requestAndReply2 = new RequestAndReply("ANSWER_REQUISIT");
+                    requestAndReply2.setRequisites(db.getAllRequisites());
 
                     oos.writeObject(requestAndReply2);
                 }
@@ -92,6 +125,8 @@ public class ClientHandler extends Thread {
 
                     oos.writeObject(requestAndReply2);
                 }
+
+
 
                 else if (requestUser.getCode().equals("VIEW_FOOD_REPLY")) {
                     RequestAndReply requestAndReply2 = new RequestAndReply("ANSWER_FOOD");
@@ -120,6 +155,38 @@ public class ClientHandler extends Thread {
                     }
                     else {
                         oos.writeObject(new RequestAndReply("NO SUCH ID"));
+                    }
+                }
+                else if (requestUser.getCode().equals("REMOVE_STAFF_REQUEST")) {
+                    if (db.removeStaff(requestUser.getId())) {
+                        oos.writeObject(new RequestAndReply("SUCCESS_STAFF"));
+                    }
+                    else {
+                        oos.writeObject(new RequestAndReply("NO SUCH ID"));
+                    }
+                }
+                else if (requestUser.getCode().equals("REMOVE_FOOD_MENU_REQUEST")) {
+                    if (db.removeFoodMenu(requestUser.getId())) {
+                        oos.writeObject(new RequestAndReply("SUCCESS_MENU"));
+                    } else {
+                        oos.writeObject(new RequestAndReply("NO SUCH ID"));
+                    }
+                }
+                else if (requestUser.getCode().equals("REMOVE_PROMO_REQUEST")) {
+                    if (db.removePromo(requestUser.getName())) {
+                        oos.writeObject(new RequestAndReply("SUCCESS"));
+                    }
+                    else {
+                        oos.writeObject(new RequestAndReply("no such id"));
+                    }
+                }
+
+                else if (requestUser.getCode().equals("EDIT_STAFF_REQUEST")) {
+                    if (db.editStaff(requestUser.getIdEdit(),requestUser.getSalary(),requestUser.getPosition())) {
+                        oos.writeObject(new RequestAndReply("SUCCESS"));
+                    }
+                    else {
+                        oos.writeObject(new RequestAndReply("no such ID"));
                     }
                 }
             }

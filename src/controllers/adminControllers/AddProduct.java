@@ -53,6 +53,7 @@ public class AddProduct {
             alert.setHeaderText(null);
             alert.setContentText(" " + name_field.getText() + " " + cost_field.getText() + " добавлен!");
             alert.showAndWait();
+            enter_button.getScene().getWindow().hide();
         } catch (IOException e) {
             e.printStackTrace();
         }

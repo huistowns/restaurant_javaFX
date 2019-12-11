@@ -46,6 +46,28 @@ public class PromoController {
     private TableColumn<Promo, Integer> col_percent;
 
     @FXML
+    private TextField namePromoToDelete_field;
+
+    @FXML
+    void deletePromo(ActionEvent event) {
+        try {
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            String namePromo = namePromoToDelete_field.getText();
+            oos.writeObject(new RequestAndReply("REMOVE_PROMO_REQUEST", namePromo));
+            RequestAndReply requestAndReply2 = (RequestAndReply) ois.readObject();
+            System.out.println(requestAndReply2.getCode());
+
+
+            oos.close();
+            ois.close();
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void enter_bst(ActionEvent event) {
         try {
             Socket socket = new Socket("localhost", 12345);
@@ -69,6 +91,10 @@ public class PromoController {
     @FXML
     void name_field(ActionEvent event) {
 
+    }
+
+    @FXML
+    void enter_bst_delete(ActionEvent event) {
     }
 
     ObservableList<Promo> oblist = FXCollections.observableArrayList();

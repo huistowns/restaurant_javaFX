@@ -27,22 +27,22 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#chat" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Чат">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#staff" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Сотрудники">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#contact" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Контакты">
+            <Button mnemonicParsing="false" onMouseClicked="#contact" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Реквизиты">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Button>
             <Button mnemonicParsing="false" onMouseClicked="#reservation" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Бронирование" />
+            <Button mnemonicParsing="false" onMouseClicked="#news" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Новости" />
+            <ImageView fitHeight="61.0" fitWidth="63.0">
+               <image>
+                  <Image url="@../../img/food.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="20.0" top="100.0" />
+               </VBox.margin>
+            </ImageView>
+            <Button mnemonicParsing="false" onMouseClicked="#history" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="История" />
          </children>
          <BorderPane.margin>
             <Insets right="3.0" />

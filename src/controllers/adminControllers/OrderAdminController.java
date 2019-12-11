@@ -55,7 +55,6 @@ public class OrderAdminController {
     @FXML
     void initialize() {
 
-
         try {
             Socket socket = new Socket("localhost", 12345);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -77,6 +76,8 @@ public class OrderAdminController {
                 ois.close();
 
                 incomeText.appendText(String.valueOf(income));
+
+                income = 0;
             } catch(IOException | ClassNotFoundException ex){
                 ex.printStackTrace();
             }

@@ -55,6 +55,45 @@ public class StaffControllers implements Initializable {
     @FXML
     private Button add_staff;
 
+
+    @FXML
+    private Button delete_staff;
+
+    @FXML
+    void delete_staff(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/adminView/removeStaff.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
+    void edit_staff(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/adminView/editStaff.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+
     @FXML
     void add_staff(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();

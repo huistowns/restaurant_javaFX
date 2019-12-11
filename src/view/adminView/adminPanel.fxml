@@ -38,6 +38,11 @@
                         <Insets top="10.0" />
                     </VBox.margin>
                 </Button>
+                <Button mnemonicParsing="false" onMouseClicked="#news" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Новости">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </Button>
                 <Button mnemonicParsing="false" onMouseClicked="#requisites" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-text-fill: #f0f0f0;" text="Реквизиты">
                     <VBox.margin>
                         <Insets top="10.0" />

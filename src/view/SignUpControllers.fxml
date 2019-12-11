@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignUpControllers">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignUpControllers">
     <children>
         <ImageView fitHeight="500.0" fitWidth="800.0">
             <image>
@@ -81,12 +81,13 @@
                   </TextField>
                </children>
             </HBox>
-                <Button mnemonicParsing="false" onAction="#registration_btn" opacity="0.84" prefHeight="25.0" prefWidth="258.0" style="-fx-background-color: #FE9595; -fx-background-radius: 100; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: Bold;" text="Registration">
+                <Button mnemonicParsing="false" onAction="#registration_btn" opacity="0.84" prefHeight="25.0" prefWidth="258.0" style="-fx-background-color: #FE9595; -fx-background-radius: 100; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: Bold;" text="Registration Adm">
                     <VBox.margin>
                         <Insets top="25.0" />
                     </VBox.margin>
                 </Button>
             </children>
         </VBox>
+      <Button fx:id="consumer_button" layoutX="320.0" layoutY="350.0" mnemonicParsing="false" onAction="#consumer_btn" opacity="0.84" prefHeight="25.0" prefWidth="258.0" style="-fx-background-color: #FE9595; -fx-background-radius: 100; -fx-text-fill: white; -fx-font-family: Quicksand; -fx-font-weight: Bold;" text="Registration Consumer" />
     </children>
 </AnchorPane>

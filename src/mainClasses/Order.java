@@ -5,18 +5,24 @@ import java.io.Serializable;
 public class Order implements Serializable {
     private Long id;
     private String name;
-    private Integer cost;
+    private Double cost;
     private String nameCustomer;
     private String addressHome;
     private String contactNumber;
 
-    public Order(Long id, String name, Integer cost, String nameCustomer, String addressHome, String contactNumber) {
+    public Order(Long id, String name, Double cost, String nameCustomer, String addressHome, String contactNumber) {
         this.id = id;
         this.name = name;
         this.cost = cost;
         this.nameCustomer = nameCustomer;
         this.addressHome = addressHome;
         this.contactNumber = contactNumber;
+    }
+
+    public Order(Long id, String name, Double cost) {
+        this.id = id;
+        this.name = name;
+        this.cost = cost;
     }
 
     public Long getId() {
@@ -35,11 +41,11 @@ public class Order implements Serializable {
         this.name = name;
     }
 
-    public Integer getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(Integer cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 
@@ -67,13 +73,15 @@ public class Order implements Serializable {
         this.contactNumber = contactNumber;
     }
 
+
     public Order () {
     }
+
 
     @Override
     public String toString() {
         return "Order{" +
-                "id=" + id +
+                ", id=" + id +
                 ", name='" + name + '\'' +
                 ", cost=" + cost +
                 ", nameCustomer='" + nameCustomer + '\'' +

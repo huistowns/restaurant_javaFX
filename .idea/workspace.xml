@@ -2,13 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="server + socket (70%)">
-      <change afterPath="$PROJECT_DIR$/src/controllers/adminControllers/AdminReservationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/userControllers/MenuController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/adminView/reservation.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/userView/menu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/adminControllers/AddNewsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/adminControllers/EditStaffController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/adminControllers/RemoveFoodMenuController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/adminControllers/RemoveStaffController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/adminControllers/RequisitesController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/userControllers/ContactController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/userControllers/NewsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/userControllers/UserOrders.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/mainClasses/Consumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/mainClasses/News.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/mainClasses/Requisites.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/adminView/editStaff.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/adminView/news.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/adminView/removeFoodMenu.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/adminView/removeStaff.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/adminView/requisites.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/userView/contact.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/userView/news.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/userView/userOrders.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Restaurant.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Restaurant.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Restaurant/controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/controllers/MainController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Restaurant/controllers/SignUpControllers.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/controllers/SignUpControllers.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Restaurant/controllers/adminControllers/AccountingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/controllers/adminControllers/AccountingController.class" afterDir="false" />
@@ -20,18 +33,33 @@
       <change beforePath="$PROJECT_DIR$/out/production/Restaurant/controllers/adminControllers/PromoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/controllers/adminControllers/PromoController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Restaurant/controllers/adminControllers/StaffControllers.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/controllers/adminControllers/StaffControllers.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Restaurant/controllers/userControllers/BasketController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/controllers/userControllers/BasketController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/controllers/userControllers/ChatController.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Restaurant/controllers/userControllers/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/controllers/userControllers/OrderController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Restaurant/controllers/userControllers/ReservationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/controllers/userControllers/ReservationController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Restaurant/controllers/userControllers/UserPanelControllers.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/controllers/userControllers/UserPanelControllers.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/Basket.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/Basket.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/Database.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/Order.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/Requests/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/Requests/ClientHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/Requests/RequestAndReply.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/Requests/RequestAndReply.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/Reservation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/Reservation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/SendSMS.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/SendSMS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/ServerClientChatSystem/ChatAppClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/ServerClientChatSystem/ChatAppServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/ServerClientChatSystem/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/ServerClientChatSystem/NetworkConnection$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/ServerClientChatSystem/NetworkConnection$ConnectionThread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/ServerClientChatSystem/NetworkConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/mainClasses/ServerClientChatSystem/Server.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/view/SignUpControllers.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/view/SignUpControllers.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Restaurant/view/adminView/adminPanel.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/view/adminView/adminPanel.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/view/adminView/order_foods.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/view/adminView/order_foods.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/view/adminView/infoAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/view/adminView/infoAdmin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/view/adminView/product.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/view/adminView/product.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/view/adminView/promo.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/view/adminView/promo.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/view/adminView/staff.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/view/adminView/staff.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/view/userView/basket.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/view/userView/basket.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/view/userView/info.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/view/userView/info.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/view/userView/order.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/view/userView/order.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Restaurant/view/userView/reservation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/view/userView/reservation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Restaurant/view/userView/userPanel.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Restaurant/view/userView/userPanel.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/SignUpControllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/SignUpControllers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/adminControllers/AccountingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/adminControllers/AccountingController.java" afterDir="false" />
@@ -43,18 +71,32 @@
       <change beforePath="$PROJECT_DIR$/src/controllers/adminControllers/PromoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/adminControllers/PromoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/adminControllers/StaffControllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/adminControllers/StaffControllers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/userControllers/BasketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/userControllers/BasketController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/userControllers/ChatController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/userControllers/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/userControllers/OrderController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/userControllers/ReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/userControllers/ReservationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/userControllers/UserPanelControllers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/userControllers/UserPanelControllers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainClasses/Basket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainClasses/Basket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mainClasses/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainClasses/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mainClasses/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainClasses/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainClasses/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainClasses/Order.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mainClasses/Requests/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainClasses/Requests/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mainClasses/Requests/RequestAndReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainClasses/Requests/RequestAndReply.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mainClasses/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainClasses/Reservation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mainClasses/SendSMS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainClasses/SendSMS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainClasses/ServerClientChatSystem/ChatAppClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainClasses/ServerClientChatSystem/ChatAppServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainClasses/ServerClientChatSystem/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainClasses/ServerClientChatSystem/NetworkConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainClasses/ServerClientChatSystem/Server.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/SignUpControllers.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/SignUpControllers.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/adminView/adminPanel.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/adminView/adminPanel.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/adminView/order_foods.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/adminView/order_foods.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/adminView/infoAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/adminView/infoAdmin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/adminView/product.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/adminView/product.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/adminView/promo.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/adminView/promo.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/adminView/staff.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/adminView/staff.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/userView/basket.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/userView/basket.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/userView/info.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/userView/info.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/userView/menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/userView/menu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/userView/order.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/userView/order.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/userView/reservation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/userView/reservation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/userView/userPanel.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/userView/userPanel.fxml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -151,12 +193,13 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
     <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/jfoenix-8.0.8.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.splitter.proportion" value="0.23383084" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -203,19 +246,6 @@
     </configuration>
     <configuration name="ChatAppClient" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="mainClasses.ServerClientChatSystem.ChatAppClient" />
-      <module name="Restaurant" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="mainClasses.ServerClientChatSystem.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ChatAppServer" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="mainClasses.ServerClientChatSystem.ChatAppServer" />
       <module name="Restaurant" />
       <extension name="coverage">
         <pattern>
@@ -276,6 +306,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="test (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="mainClasses.ServerClientChatSystem.test" />
+      <module name="Restaurant" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="mainClasses.ServerClientChatSystem.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="controllers.test" />
       <module name="Restaurant" />
@@ -324,18 +368,18 @@
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.ChatAppClient" />
-      <item itemvalue="Application.ChatAppServer" />
       <item itemvalue="Application.SendSMS" />
       <item itemvalue="Application.Server" />
       <item itemvalue="Application.test" />
+      <item itemvalue="Application.test (1)" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Server" />
+        <item itemvalue="Application.test (1)" />
         <item itemvalue="Application.SendSMS" />
         <item itemvalue="Application.test" />
         <item itemvalue="Application.ChatAppClient" />
-        <item itemvalue="Application.ChatAppServer" />
       </list>
     </recent_temporary>
   </component>
@@ -379,7 +423,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574964676815</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="server + socket (70%)">
+      <created>1575056298386</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1575056298386</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">

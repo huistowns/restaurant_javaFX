@@ -1,5 +1,6 @@
 package controllers.userControllers;
 
+import controllers.MainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -79,7 +80,7 @@ public class OrderController {
             Socket socket = new Socket("localhost", 12345);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            RequestAndReply requestAndReply = new RequestAndReply("VIEW_FOOD");
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_FOOD_REPLY");
             oos.writeObject(requestAndReply);
             RequestAndReply requestAndReply2 = (RequestAndReply)ois.readObject();
 
@@ -109,7 +110,7 @@ public class OrderController {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
-            Basket basket = new Basket(nameProduct, costProduct, null);
+            Basket basket = new Basket(MainController.getNameSave(), nameProduct, costProduct, null);
             RequestAndReply requestUser = new RequestAndReply("ADD_BASKET_REQUEST", basket);
             oos.writeObject(requestUser);
 

@@ -1,5 +1,6 @@
 package controllers.userControllers;
 
+import controllers.MainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mainClasses.Basket;
 import mainClasses.Order;
+import mainClasses.Promo;
 import mainClasses.Requests.RequestAndReply;
 import mainClasses.SendSMS;
 
@@ -40,10 +42,15 @@ public class BasketController {
     private TableColumn<Basket, Long> col_id;
 
     @FXML
-    private Button add_staff;
+    private TextField promo_field;
 
     @FXML
-    private TextField name_field;
+    void promo_field(ActionEvent event) {
+
+    }
+
+    @FXML
+    private Button add_staff;
 
     @FXML
     private TextField house_field;
@@ -81,6 +88,12 @@ public class BasketController {
 
             oos.close();
             ois.close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Успешно добавлено");
+            alert.setHeaderText(null);
+            alert.setContentText("ID товара: " +  idDelete  + " удален!");
+            alert.showAndWait();
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
@@ -89,7 +102,6 @@ public class BasketController {
 
     @FXML
     void add_staff(ActionEvent event) {
-        String name = name_field.getText();
         String house = house_field.getText();
         String contact = contact_field.getText();
 
@@ -104,10 +116,37 @@ public class BasketController {
 
 
 
-            for (Basket basket: requestAndReply2.getBaskets()) {
-                Order order = new Order(null, basket.getName(), basket.getCost(), name, house, contact);
-                RequestAndReply requestAddOrder =  new RequestAndReply("ADD_ORDER_REQUEST", order);
-                oos.writeObject(requestAddOrder);
+            if (promo_field.getText().length() <= 0) {
+                for (Basket basket : requestAndReply2.getBaskets()) {
+                    if (basket.getNameUser().equals(MainController.getNameSave())) {
+                        Order order = new Order(null, basket.getName(), Double.valueOf(basket.getCost()), MainController.getNameSave(), house, contact);
+                        RequestAndReply requestAddOrder = new RequestAndReply("ADD_ORDER_REQUEST", order);
+                        oos.writeObject(requestAddOrder);
+                    }
+                }
+            }
+            else {
+                Double sumWithPromo = 1.0;
+                RequestAndReply requestAndReply3 = new RequestAndReply("VIEW_PROMO_REPLY");
+                oos.writeObject(requestAndReply3);
+
+                RequestAndReply requestAndReply4 = (RequestAndReply) ois.readObject();
+
+                for (Promo promo: requestAndReply4.getPromos()) {
+                    if (promo_field.getText().equals(promo.getName())) {
+                        for (Basket basket: requestAndReply2.getBaskets()) {
+                            if (basket.getNameUser().equals(MainController.getNameSave())) {
+                                sumWithPromo *= Double.valueOf(basket.getCost()) * (Double.valueOf(promo.getPercent()) / 100);
+                                Order order = new Order(null, basket.getName(), sumWithPromo, MainController.getNameSave(), house, contact);
+                                RequestAndReply requestAddOrder1 = new RequestAndReply("ADD_ORDER_REQUEST", order);
+                                oos.writeObject(requestAddOrder1);
+
+                                sumWithPromo = 1.0;
+                            }
+                        }
+                    }
+                }
+
             }
 
 
@@ -152,6 +191,7 @@ public class BasketController {
 
     @FXML
     void initialize() {
+        System.out.println(promo_field.getText().length());
         Integer productSum = 0;
         try {
             Socket socket = new Socket("localhost", 12345);
@@ -164,10 +204,13 @@ public class BasketController {
 
 
             for (Basket basket: requestAndReply2.getBaskets()) {
-                oblist.add(new Basket(basket.getName(),
-                        basket.getCost(),
-                        basket.getId()));
-                productSum += basket.getCost();
+                if (MainController.getNameSave().equals(basket.getNameUser())) {
+                    oblist.add(new Basket(MainController.getNameSave(),
+                            basket.getName(),
+                            basket.getCost(),
+                            basket.getId()));
+                    productSum += basket.getCost();
+                }
             }
 
             setSumProduct(productSum);

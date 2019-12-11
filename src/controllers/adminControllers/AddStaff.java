@@ -2,6 +2,7 @@ package controllers.adminControllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import mainClasses.Requests.RequestAndReply;
@@ -53,7 +54,13 @@ public class AddStaff {
             Staff staff = new Staff(null, name, surname, position, salary);
             RequestAndReply requestUser = new RequestAndReply("ADD_STAFF_REQUEST", staff);
             oos.writeObject(requestUser);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Успешно добавлено");
+            alert.setHeaderText(null);
+            alert.setContentText("Сотрудник: " + name_field.getText() + " " + surname + " добавлен!");
+            alert.showAndWait();
 
+            enter_button.getScene().getWindow().hide();
             oos.close();
             ois.close();
         } catch (IOException e) {

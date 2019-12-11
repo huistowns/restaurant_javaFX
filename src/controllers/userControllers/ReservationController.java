@@ -2,6 +2,7 @@ package controllers.userControllers;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
+import controllers.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -20,6 +21,7 @@ import java.util.ResourceBundle;
 
 public class ReservationController {
     public static Integer stage = 0;
+    public static Integer checkOrder = 0;
 
     @FXML
     void dateFieldq(ActionEvent event) {
@@ -78,10 +80,6 @@ public class ReservationController {
 
     @FXML
     private Button stage_9;
-
-    @FXML
-    private TextField name_field;
-
     @FXML
     private TextField time_field;
 
@@ -105,33 +103,49 @@ public class ReservationController {
             Socket socket = new Socket("localhost", 12345);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-
-            String name = name_field.getText();
+            RequestAndReply requestAndReply = new RequestAndReply("VIEW_RESERVATION_REPLY");
+            oos.writeObject(requestAndReply);
+            RequestAndReply requestAndReply2 = (RequestAndReply)ois.readObject();
             String date = dateFieldq.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             String time = timeon.getValue().format(DateTimeFormatter.ofPattern("HH:mm"));
             System.out.println(time);
 
-            if (stage == 0) {
+
+            for (Reservation reservation: requestAndReply2.getReservations()) {
+                if (date.equals(reservation.getDate()) && time.equals(reservation.getTime()) && stage.equals(reservation.getStage())) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Успешно добавлено");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Данный столик занят!");
+                    alert.showAndWait();
+                    checkOrder = 1;
+                    break;
+                }
+            }
+
+            if (stage == 0 && checkOrder == 0) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Успешно добавлено");
+                alert.setTitle("Ошибка 404");
                 alert.setHeaderText(null);
                 alert.setContentText("Вы не выбрали столик!");
                 alert.showAndWait();
             }
-            else if (stage == 0 && date.length() <= 0 && time.length() <= 0) {
+            else if (stage == 0 && date.length() <= 0 && time.length() <= 0 && checkOrder == 0) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Успешно добавлено");
+                alert.setTitle("Ошибка 404");
                 alert.setHeaderText(null);
                 alert.setContentText("Заполните все поля!");
                 alert.showAndWait();
             }
 
-            else {
+
+
+            else if (checkOrder == 0) {
                 int minNumber = 100;
                 int maxNumber = 5000;
                 int randomBilet = minNumber + (int) (Math.random() * maxNumber);
 
-                Reservation reservation = new Reservation(null, name, date, stage, time, randomBilet);
+                Reservation reservation = new Reservation(null, MainController.getNameSave(), date, stage, time, randomBilet);
                 RequestAndReply requestUser = new RequestAndReply("ADD_RESERVATION_REQUEST", reservation);
                 oos.writeObject(requestUser);
 
@@ -144,7 +158,9 @@ public class ReservationController {
 
             oos.close();
             ois.close();
-        } catch (IOException e) {
+
+            checkOrder = 0;
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -270,7 +286,7 @@ public class ReservationController {
 
     @FXML
     void initialize() {
-
+        System.out.println(MainController.getNameSave());
     }
 
 

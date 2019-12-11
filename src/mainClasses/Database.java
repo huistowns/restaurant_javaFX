@@ -46,9 +46,10 @@ public class Database {
 
     public void addBasket(Basket basket) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO basket(name, cost, id) VALUES (?,?,NULL)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO basket(name, cost, id, nameUser) VALUES (?,?,NULL, ?)");
             ps.setString(1, basket.getName());
             ps.setInt(2, basket.getCost());
+            ps.setString(3, basket.getNameUser());
 
             ps.executeUpdate();
             ps.close();
@@ -61,10 +62,24 @@ public class Database {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO order_foods(id, name, cost, nameCustomer, addressHome, contactNumber) VALUES (NULL, ?, ?, ?, ?, ?)");
             ps.setString(1, order.getName());
-            ps.setInt(2, order.getCost());
+            ps.setDouble(2, order.getCost());
             ps.setString(3, order.getNameCustomer());
             ps.setString(4, order.getAddressHome());
             ps.setString(5, order.getContactNumber());
+
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addRequisites(Requisites requisites) {
+        try {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO requiesites(nameBank, numberBank, fullname) VALUES (?,?,?)");
+            ps.setString(1, requisites.getNameBank());
+            ps.setString(2, requisites.getIdCard());
+            ps.setString(3, requisites.getFullNameOwner());
 
             ps.executeUpdate();
             ps.close();
@@ -94,6 +109,35 @@ public class Database {
             PreparedStatement ps = con.prepareStatement("INSERT INTO promo(name, percent) VALUES (?, ?)");
             ps.setString(1, promo.getName());
             ps.setInt(2, promo.getPercent());
+
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void addNews(News news) {
+        try {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO news(heading, description, dateRestaurant, timeRestaurant, id) VALUES (?,?,?,?,NULL)");
+            ps.setString(1, news.getHeading());
+            ps.setString(2, news.getDescription());
+            ps.setString(3, news.getDate());
+            ps.setString(4, news.getTime());
+
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addConsumer(Consumer consumer) {
+        try {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO consumer(id, name, password) VALUES (NULL, ?, ?)");
+            ps.setString(1, consumer.getName());
+            ps.setString(2, consumer.getPassword());
 
             ps.executeUpdate();
             ps.close();
@@ -141,6 +185,28 @@ public class Database {
         return list;
     }
 
+    public ArrayList<Consumer> getAllConsumer() {
+        ArrayList<Consumer> listConsumer = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM consumer");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Long id = rs.getLong("id");
+                String name = rs.getString("name");
+                String password = rs.getString("password");
+
+                listConsumer.add(new Consumer(id,name,password));
+            }
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return listConsumer;
+    }
+
 
 
     public ArrayList<Staff> getAllStaff() {
@@ -166,6 +232,29 @@ public class Database {
         return list;
     }
 
+    public ArrayList<News> getAllNews() {
+        ArrayList<News> listNews = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM news");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String heading = rs.getString("heading");
+                String description = rs.getString("description");
+                String date = rs.getString("dateRestaurant");
+                String time = rs.getString("timeRestaurant");
+                Long id = rs.getLong("id");
+
+                listNews.add(new News(heading,description,date,time,id));
+            }
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listNews;
+    }
+
     public ArrayList<Food> getAllFoods() {
         ArrayList<Food> list = new ArrayList<>();
 
@@ -187,6 +276,28 @@ public class Database {
         return list;
     }
 
+    public ArrayList<Requisites> getAllRequisites() {
+        ArrayList<Requisites> listRequisites = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM requiesites");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("nameBank");
+                String numberBank = rs.getString("numberBank");
+                String fullname = rs.getString("fullname");
+
+                listRequisites.add(new Requisites(name,numberBank,fullname));
+            }
+
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listRequisites;
+    }
+
     public ArrayList<Basket> getAllBasket() {
         ArrayList<Basket> listBasket = new ArrayList<>();
 
@@ -195,11 +306,12 @@ public class Database {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                String nameUser = rs.getString("nameUser");
                 String name = rs.getString("name");
                 Integer cost = rs.getInt("cost");
                 Long id = rs.getLong("id");
 
-                listBasket.add(new Basket(name,cost,id));
+                listBasket.add(new Basket(nameUser,name,cost,id));
             }
             ps.close();
         } catch (SQLException e) {
@@ -242,7 +354,7 @@ public class Database {
             while (rs.next()) {
                 Long id = rs.getLong("id");
                 String name = rs.getString("name");
-                Integer cost = rs.getInt("cost");
+                Double cost = rs.getDouble("cost");
                 String nameCustomer = rs.getString("nameCustomer");
                 String addressHome = rs.getString("addressHome");
                 String contactNumber = rs.getString("contactNumber");
@@ -290,6 +402,78 @@ public class Database {
             e.printStackTrace();
         }
         return (number==1);
+    }
+
+    public boolean removeFoodMenu(Long id) {
+        int number = 0;
+        try {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM foods WHERE id = ?");
+            ps.setInt(1, Math.toIntExact(id));
+            number = ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (number == 1);
+    }
+
+
+
+    public boolean removeStaff(Long id) {
+        int number = 0;
+        try {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM staff WHERE id = ?");
+            ps.setInt(1, Math.toIntExact(id));
+            number = ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (number == 1);
+
+    }
+
+    public boolean editStaff(Long id, String salary, String position) {
+        int number = 0;
+        try {
+            PreparedStatement ps = con.prepareStatement("UPDATE staff SET position = ? , salary = ? WHERE id = ?");
+            ps.setString(1, position);
+            ps.setString(2, salary);
+            ps.setLong(3, id);
+            number = ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return (number == 1);
+    }
+
+    public boolean removePromo (String name) {
+        int number = 0;
+        try {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM promo WHERE name = ?");
+            ps.setString(1, name);
+            number = ps.executeUpdate();
+
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (number == 1);
+    }
+
+    public boolean removeNews(Long id) {
+        int number = 0;
+        try {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM news WHERE id =?");
+            ps.setLong(1, id);
+            number = ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (number == 1);
     }
 
 

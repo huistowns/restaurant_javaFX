@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import mainClasses.Consumer;
 import mainClasses.Requests.RequestAndReply;
 import mainClasses.User;
 
@@ -20,10 +21,27 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController {
-    public static String nameToSave;
+    private static String nameSave;
+    private static String passwordSave;
 
     @FXML
     private ResourceBundle resources;
+
+    public static String getNameSave() {
+        return nameSave;
+    }
+
+    public static void setNameSave(String nameSave) {
+        MainController.nameSave = nameSave;
+    }
+
+    public static String getPasswordSave() {
+        return passwordSave;
+    }
+
+    public static void setPasswordSave(String passwordSave) {
+        MainController.passwordSave = passwordSave;
+    }
 
     @FXML
     private URL location;
@@ -45,22 +63,50 @@ public class MainController {
 
     @FXML
     void enter_btn_custommer(ActionEvent event) {
-        enter_button_customer.getScene().getWindow().hide();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/userView/userPanel.fxml"));
-
         try {
-            loader.load();
-        } catch (IOException e) {
+            Socket socket = new Socket("localhost", 12345);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            String name = name_field.getText();
+            String password = password_field.getText();
+
+
+            RequestAndReply requestUser = new RequestAndReply("VIEW_CONSUMER_REPLY");
+            oos.writeObject(requestUser);
+
+            RequestAndReply requestUser2 = (RequestAndReply)ois.readObject();
+
+            for (Consumer c: requestUser2.getConsumers()) {
+                System.out.println(c);
+                if (name.equals(c.getName()) && password.equals(c.getPassword())) {
+                    setNameSave(name);
+                    setPasswordSave(password);
+
+                    System.out.println(getNameSave());
+                    enter_button.getScene().getWindow().hide();
+
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/view/userView/userPanel.fxml"));
+
+                    try {
+                        loader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Parent root = loader.getRoot();
+                    Stage stage = new Stage();
+
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                }
+            }
+
+            oos.close();
+            ois.close();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-
-        stage.setScene(new Scene(root));
-        stage.show();
     }
 
 
@@ -70,8 +116,8 @@ public class MainController {
             Socket socket = new Socket("localhost", 12345);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            String name = name_field.getText();
-            String password = password_field.getText();
+            String nameAdm = name_field.getText();
+            String passwordAdm = password_field.getText();
 
 
             RequestAndReply requestUser = new RequestAndReply("VIEW_ADM_REPLY");
@@ -80,7 +126,9 @@ public class MainController {
             RequestAndReply requestUser2 = (RequestAndReply)ois.readObject();
 
             for (User u: requestUser2.getUsers()) {
-                if (name.equals(u.getName()) && password.equals(u.getPassword())) {
+                if (nameAdm.equals(u.getName()) && passwordAdm.equals(u.getPassword())) {
+                    setNameSave(nameAdm);
+                    setPasswordSave(passwordAdm);
                 enter_button.getScene().getWindow().hide();
 
                 FXMLLoader loader = new FXMLLoader();
@@ -97,10 +145,6 @@ public class MainController {
 
                 stage.setScene(new Scene(root));
                 stage.show();
-                nameToSave = name;
-                }
-                else {
-                    break;
                 }
             }
 
@@ -115,8 +159,6 @@ public class MainController {
     void initialize() {
 
         sign_up_field.setOnAction(event -> {
-            sign_up_field.getScene().getWindow().hide();
-
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/SignUpControllers.fxml"));
 
@@ -132,12 +174,7 @@ public class MainController {
             stage.setScene(new Scene(root));
             stage.show();
         });
+
     }
 
-    public static String getAdministratorInfo(String name, String password) {
-        String nameSave = name;
-        String passwordSave = password;
-
-        return nameSave + " " + passwordSave ;
-    }
 }

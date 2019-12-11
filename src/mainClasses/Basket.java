@@ -3,11 +3,13 @@ package mainClasses;
 import java.io.Serializable;
 
 public class Basket implements Serializable {
+    private String nameUser;
     private String name;
     private Integer cost;
     private Long id;
 
-    public Basket(String name, Integer cost, Long id) {
+    public Basket(String nameUser, String name, Integer cost, Long id) {
+        this.nameUser = nameUser;
         this.name = name;
         this.cost = cost;
         this.id = id;
@@ -37,6 +39,14 @@ public class Basket implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNameUser() {
+        return nameUser;
+    }
+
+    public void setNameUser(String nameUser) {
+        this.nameUser = nameUser;
     }
 
     @Override
